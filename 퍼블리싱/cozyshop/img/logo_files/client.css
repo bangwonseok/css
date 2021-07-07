@@ -1,0 +1,607 @@
+@charset "utf-8";
+/*############################################################*/
+/* GLOBAL
+/*############################################################*/
+._LF_FRAME { position: fixed; }
+
+._LF_CHAT_ACTIVE, ._LF_SUPPORT_ACTIVE { z-index: 19999; }
+
+._LF_CHAT_TRIGGER, ._LF_SUPPORT_TRIGGER { z-index: 19998; }
+
+._LF_CHAT_ALERT, ._LF_SUPPORT_ALERT { z-index: 20000; }
+
+._LF_CHAT_SHADOW{
+    width: 600px;
+    height: 600px;
+    position: fixed;
+    z-index: 10000;
+    pointer-events: none;
+
+
+    opacity: 0;
+    animation-name: showShadow;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+
+
+._LF_CHAT_SHADOW.RIGHT{
+    right: 0;
+}
+._LF_CHAT_SHADOW.LEFT{
+    left: 0;
+}
+._LF_CHAT_SHADOW.TOP{
+    top: 0;
+}
+._LF_CHAT_SHADOW.MIDDLE{
+    top: 50%;
+    margin-top: -300px;
+}
+._LF_CHAT_SHADOW.BOTTOM{
+    bottom: 0;
+}
+
+._LF_CHAT_SHADOW.LEFT.TOP{
+    background: radial-gradient(ellipse at top left,rgba(29,39,54,.16) 0%,rgba(29,39,54,0) 72%);
+}
+
+._LF_CHAT_SHADOW.RIGHT.TOP{
+    background: radial-gradient(ellipse at top right,rgba(29,39,54,.16) 0%,rgba(29,39,54,0) 72%);
+}
+
+._LF_CHAT_SHADOW.LEFT.MIDDLE{
+    background: radial-gradient(ellipse at left,rgba(29,39,54,.16) 0%,rgba(29,39,54,0) 72%);
+}
+
+._LF_CHAT_SHADOW.RIGHT.MIDDLE{
+    background: radial-gradient(ellipse at right,rgba(29,39,54,.16) 0%,rgba(29,39,54,0) 72%);
+}
+
+._LF_CHAT_SHADOW.LEFT.BOTTOM{
+    background: radial-gradient(ellipse at bottom left,rgba(29,39,54,.16) 0%,rgba(29,39,54,0) 72%);
+}
+
+._LF_CHAT_SHADOW.RIGHT.BOTTOM{
+    background: radial-gradient(ellipse at bottom right,rgba(29,39,54,.16) 0%,rgba(29,39,54,0) 72%);
+}
+
+@keyframes showShadow{
+    0%{
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+
+/*############################################################*/
+/* IMAGE VIEWER
+/*############################################################*/
+._LF_IV-COMMON-01 { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 16777271; }
+
+/*############################################################*/
+/* CHAT ACTIVE
+/*############################################################*/
+/*********** COMMON ************/
+._LF_CHAT_ACTIVE._LF_MOBILE { width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; bottom: 0 !important; right: 0 !important; margin-top: 0 !important; }
+._LF_CHAT_ACTIVE._LF_EXTEND { width: 100%; height: 100%; top: 0 !important; left: 0 !important; bottom: 0 !important; right: 0 !important; margin-top: 0 !important; }
+
+/*********** BASIC ************/
+._LF_CA-BASIC-SIMPLE-01._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CA-BASIC-SIMPLE-01._LF_PC._LF_LARGE { width: 367px; height: 502px; }
+._LF_CA-BASIC-SIMPLE-01._LF_PC._LF_MEDIUM { width: 330px; height: 452px; }
+._LF_CA-BASIC-SIMPLE-01._LF_PC._LF_SMALL { width: 294px; height: 402px; }
+._LF_CA-BASIC-SIMPLE-01._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-BASIC-SIMPLE-01._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-BASIC-SIMPLE-01._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-BASIC-SLIDE-01._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CA-BASIC-SLIDE-01._LF_PC._LF_LARGE { width: 385px; height: 100%; }
+._LF_CA-BASIC-SLIDE-01._LF_PC._LF_MEDIUM { width: 350px; height: 100%; }
+._LF_CA-BASIC-SLIDE-01._LF_PC._LF_SMALL { width: 315px; height: 100%; }
+._LF_CA-BASIC-SLIDE-01._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-BASIC-SLIDE-01._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-BASIC-SLIDE-01._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-BASIC-SIMPLE-LIGHT-01._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CA-BASIC-SIMPLE-LIGHT-01._LF_PC._LF_LARGE { width: 424px; height: 697px; }
+._LF_CA-BASIC-SIMPLE-LIGHT-01._LF_PC._LF_MEDIUM { width: 385px; height: 634px; }
+._LF_CA-BASIC-SIMPLE-LIGHT-01._LF_PC._LF_SMALL { width: 347px; height: 571px; }
+._LF_CA-BASIC-SIMPLE-LIGHT-01._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-BASIC-SIMPLE-LIGHT-01._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-BASIC-SIMPLE-LIGHT-01._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-BASIC-MINI-01._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CA-BASIC-MINI-01._LF_PC._LF_LARGE { width: 347px; height: 345px; }
+._LF_CA-BASIC-MINI-01._LF_PC._LF_MEDIUM { width: 315px; height: 314px; }
+._LF_CA-BASIC-MINI-01._LF_PC._LF_SMALL { width: 284px; height: 283px; }
+._LF_CA-BASIC-MINI-01._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-BASIC-MINI-01._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-BASIC-MINI-01._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-OWNED-MCM._LF_PC { /*1.0x*/ /*1.0x*/ /*1.0x*/ }
+._LF_CA-OWNED-MCM._LF_PC._LF_LARGE { width: 350px; height: 600px; }
+._LF_CA-OWNED-MCM._LF_PC._LF_MEDIUM { width: 350px; height: 600px; }
+._LF_CA-OWNED-MCM._LF_PC._LF_SMALL { width: 350px; height: 600px; }
+._LF_CA-OWNED-MCM._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-OWNED-MCM._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-OWNED-MCM._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+
+._LF_CA-2GEN-BASIC-SIMPLE._LF_PC { width: 340px; height: 690px; }
+._LF_CA-2GEN-BASIC-SIMPLE._LF_PC._LF_LARGE {}
+._LF_CA-2GEN-BASIC-SIMPLE._LF_PC._LF_MEDIUM {}
+._LF_CA-2GEN-BASIC-SIMPLE._LF_PC._LF_SMALL { width: 340px; height: 480px; }
+._LF_CA-2GEN-BASIC-SIMPLE._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-2GEN-BASIC-SIMPLE._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-2GEN-BASIC-SIMPLE._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+/*********** THEME ************/
+._LF_CA-T001._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CA-T001._LF_PC._LF_LARGE { width: 440px; height: 620px; }
+._LF_CA-T001._LF_PC._LF_MEDIUM { width: 396px; height: 558px; }
+._LF_CA-T001._LF_PC._LF_SMALL { width: 352px; height: 496px; }
+._LF_CA-T001._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T001._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T001._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T002._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CA-T002._LF_PC._LF_LARGE { width: 428px; height: 658px; }
+._LF_CA-T002._LF_PC._LF_MEDIUM { width: 385.2px; height: 592.2px; }
+._LF_CA-T002._LF_PC._LF_SMALL { width: 342.4px; height: 526.4px; }
+._LF_CA-T002._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T002._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T002._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T003._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CA-T003._LF_PC._LF_LARGE { width: 499px; height: 518px; }
+._LF_CA-T003._LF_PC._LF_MEDIUM { width: 449.1px; height: 466.2px; }
+._LF_CA-T003._LF_PC._LF_SMALL { width: 399.2px; height: 414.4px; }
+._LF_CA-T003._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T003._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T003._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T004._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CA-T004._LF_PC._LF_LARGE { width: 407px; height: 631.4px; }
+._LF_CA-T004._LF_PC._LF_MEDIUM { width: 370px; height: 574px; }
+._LF_CA-T004._LF_PC._LF_SMALL { width: 333px; height: 516px; }
+._LF_CA-T004._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T004._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T004._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T005._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CA-T005._LF_PC._LF_LARGE { width: 420px; height: 100%; }
+._LF_CA-T005._LF_PC._LF_MEDIUM { width: 378px; height: 100%; }
+._LF_CA-T005._LF_PC._LF_SMALL { width: 336px; height: 100%; }
+._LF_CA-T005._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T005._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T005._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T006._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CA-T006._LF_PC._LF_LARGE { width: 426px; height: 586px; }
+._LF_CA-T006._LF_PC._LF_MEDIUM { width: 383.4px; height: 527.4px; }
+._LF_CA-T006._LF_PC._LF_SMALL { width: 340.8px; height: 468.8px; }
+._LF_CA-T006._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T006._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T006._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T007._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CA-T007._LF_PC._LF_LARGE { width: 424.6px; height: 523.6px; }
+._LF_CA-T007._LF_PC._LF_MEDIUM { width: 386px; height: 476px; }
+._LF_CA-T007._LF_PC._LF_SMALL { width: 347.4px; height: 428.4px; }
+._LF_CA-T007._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T007._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T007._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T008._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CA-T008._LF_PC._LF_LARGE { width: 323.4px; height: 510.4px; }
+._LF_CA-T008._LF_PC._LF_MEDIUM { width: 294px; height: 464px; }
+._LF_CA-T008._LF_PC._LF_SMALL { width: 264.6px; height: 417.6px; }
+._LF_CA-T008._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T008._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T008._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T009._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CA-T009._LF_PC._LF_LARGE { width: 385px; height: 561px; }
+._LF_CA-T009._LF_PC._LF_MEDIUM { width: 350px; height: 510px; }
+._LF_CA-T009._LF_PC._LF_SMALL { width: 315px; height: 459px; }
+._LF_CA-T009._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T009._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T009._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_CA-T010._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CA-T010._LF_PC._LF_LARGE { width: 389.4px; height: 528px; }
+._LF_CA-T010._LF_PC._LF_MEDIUM { width: 354px; height: 480px; }
+._LF_CA-T010._LF_PC._LF_SMALL { width: 318.6px; height: 432px; }
+._LF_CA-T010._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_CA-T010._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_CA-T010._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+/*############################################################*/
+/* CHAT ALERT
+/*############################################################*/
+/*********** COMMON ************/
+
+/*******************************/
+._LF_CL-B001{}
+._LF_CL-B001._LF_PC._LF_LARGE { width: 252px; height: 126px; }
+._LF_CL-B001._LF_PC._LF_MEDIUM { width: 252px; height: 126px; }
+._LF_CL-B001._LF_PC._LF_SMALL { width: 252px; height: 126px; }
+
+
+
+/*############################################################*/
+/* CHAT TRIGGER
+/*############################################################*/
+/*********** COMMON ************/
+._LF_CHAT_TRIGGER._LF_EXTEND { display: none; }
+
+/*******************************/
+._LF_CT-BASIC-BAR-01._LF_PC._LF_LARGE { width: 230px; height: 44px; }
+._LF_CT-BASIC-BAR-01._LF_PC._LF_MEDIUM { width: 200px; height: 38px; }
+._LF_CT-BASIC-BAR-01._LF_PC._LF_SMALL { width: 175px; height: 34px; }
+._LF_CT-BASIC-BAR-01._LF_MOBILE._LF_LARGE { width: 56vw; height: 10.9vw; }
+._LF_CT-BASIC-BAR-01._LF_MOBILE._LF_MEDIUM { width: 50vw; height: 9.75vw; }
+._LF_CT-BASIC-BAR-01._LF_MOBILE._LF_SMALL { width: 44vw; height: 8.4vw; }
+
+._LF_CT-BASIC-CIRCLE-01._LF_PC._LF_LARGE { width: 60px; height: 60px; }
+._LF_CT-BASIC-CIRCLE-01._LF_PC._LF_MEDIUM { width: 52px; height: 52px; }
+._LF_CT-BASIC-CIRCLE-01._LF_PC._LF_SMALL { width: 45px; height: 45px; }
+._LF_CT-BASIC-CIRCLE-01._LF_MOBILE { /*1.2x*/ /*1.0x*/ /*0.8x*/ }
+._LF_CT-BASIC-CIRCLE-01._LF_MOBILE._LF_LARGE { width: 19vw; height: 19vw; }
+._LF_CT-BASIC-CIRCLE-01._LF_MOBILE._LF_MEDIUM { width: 16vw; height: 16vw; }
+._LF_CT-BASIC-CIRCLE-01._LF_MOBILE._LF_SMALL { width: 13vw; height: 13vw; }
+
+._LF_CT-BASIC-CIRCLE-LIGHT-01._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-BASIC-CIRCLE-LIGHT-01._LF_PC._LF_LARGE { width: 60px; height: 60px; }
+._LF_CT-BASIC-CIRCLE-LIGHT-01._LF_PC._LF_MEDIUM { width: 52px; height: 52px; }
+._LF_CT-BASIC-CIRCLE-LIGHT-01._LF_PC._LF_SMALL { width: 45px; height: 45px; }
+._LF_CT-BASIC-CIRCLE-LIGHT-01._LF_MOBILE._LF_LARGE { width: 19vw; height: 19vw; }
+._LF_CT-BASIC-CIRCLE-LIGHT-01._LF_MOBILE._LF_MEDIUM { width: 16vw; height: 16vw; }
+._LF_CT-BASIC-CIRCLE-LIGHT-01._LF_MOBILE._LF_SMALL { width: 13vw; height: 13vw; }
+
+._LF_CT-BASIC-SQUARE-01._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-BASIC-SQUARE-01._LF_PC._LF_LARGE { width: 60px; height: 60px; }
+._LF_CT-BASIC-SQUARE-01._LF_PC._LF_MEDIUM { width: 52px; height: 52px; }
+._LF_CT-BASIC-SQUARE-01._LF_PC._LF_SMALL { width: 45px; height: 45px; }
+._LF_CT-BASIC-SQUARE-01._LF_MOBILE { /*1.2x*/ /*1.0x*/ /*0.8x*/ }
+._LF_CT-BASIC-SQUARE-01._LF_MOBILE._LF_LARGE { width: 19vw; height: 19vw; }
+._LF_CT-BASIC-SQUARE-01._LF_MOBILE._LF_MEDIUM { width: 16vw; height: 16vw; }
+._LF_CT-BASIC-SQUARE-01._LF_MOBILE._LF_SMALL { width: 13vw; height: 13vw; }
+
+
+/*********** CT-2GEN-BASIC-CIRCLE-01 ************/
+._LF_CT-2GEN-BASIC-CIRCLE-01._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-2GEN-BASIC-CIRCLE-01._LF_PC._LF_LARGE { width: 80px; height: 80px; }
+._LF_CT-2GEN-BASIC-CIRCLE-01._LF_PC._LF_MEDIUM { width: 80px; height: 80px; }
+._LF_CT-2GEN-BASIC-CIRCLE-01._LF_PC._LF_SMALL { width: 80px; height: 80px; }
+._LF_CT-2GEN-BASIC-CIRCLE-01._LF_MOBILE { /*1.2x*/ /*1.0x*/ /*0.8x*/ }
+._LF_CT-2GEN-BASIC-CIRCLE-01._LF_MOBILE._LF_LARGE { width: 90px !important; height: 90px !important; }
+._LF_CT-2GEN-BASIC-CIRCLE-01._LF_MOBILE._LF_MEDIUM { width: 90px !important; height: 90px !important; }
+._LF_CT-2GEN-BASIC-CIRCLE-01._LF_MOBILE._LF_SMALL { width: 90px !important; height: 90px !important; }
+
+
+
+/*********** CT-T001 ************/
+
+._LF_CT-T001._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CT-T001._LF_PC._LF_LARGE { width: 80px; height: 80px; }
+._LF_CT-T001._LF_PC._LF_MEDIUM { width: 72px; height: 72px; }
+._LF_CT-T001._LF_PC._LF_SMALL { width: 64px; height: 64px; }
+._LF_CT-T001._LF_MOBILE { /*1.2x*/ /*1.1x*/ /*1.0x*/ }
+._LF_CT-T001._LF_MOBILE._LF_LARGE { width: 17.776vw; height: 17.776vw; }
+._LF_CT-T001._LF_MOBILE._LF_MEDIUM { width: 16.295vw; height: 16.295vw; }
+._LF_CT-T001._LF_MOBILE._LF_SMALL { width: 14.814vw; height: 14.814vw; }
+
+._LF_CT-T001._LF_PC._LF_SUBSTYLE_WHALE { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CT-T001._LF_PC._LF_SUBSTYLE_WHALE._LF_LARGE { width: 87px; height: 82px; }
+._LF_CT-T001._LF_PC._LF_SUBSTYLE_WHALE._LF_MEDIUM { width: 72px; height: 72px; }
+._LF_CT-T001._LF_PC._LF_SUBSTYLE_WHALE._LF_SMALL { width: 64px; height: 64px; }
+._LF_CT-T001._LF_MOBILE._LF_SUBSTYLE_WHALE { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-T001._LF_MOBILE._LF_SUBSTYLE_WHALE._LF_LARGE { width: 17.722vw; height: 16.703vw; }
+._LF_CT-T001._LF_MOBILE._LF_SUBSTYLE_WHALE._LF_MEDIUM { width: 16.111vw; height: 15.185vw; }
+._LF_CT-T001._LF_MOBILE._LF_SUBSTYLE_WHALE._LF_SMALL { width: 14.499vw; height: 13.665vw; }
+
+._LF_CT-T001._LF_PC._LF_SUBSTYLE_BALLOON { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CT-T001._LF_PC._LF_SUBSTYLE_BALLOON._LF_LARGE { width: 99px; height: 80px; }
+._LF_CT-T001._LF_PC._LF_SUBSTYLE_BALLOON._LF_MEDIUM { width: 89.1px; height: 72px; }
+._LF_CT-T001._LF_PC._LF_SUBSTYLE_BALLOON._LF_SMALL { width: 19.2px; height: 64px; }
+._LF_CT-T001._LF_MOBILE._LF_SUBSTYLE_BALLOON { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CT-T001._LF_MOBILE._LF_SUBSTYLE_BALLOON._LF_LARGE { width: 18.333vw; height: 14.814vw; }
+._LF_CT-T001._LF_MOBILE._LF_SUBSTYLE_BALLOON._LF_MEDIUM { width: 16.499vw; height: 13.332vw; }
+._LF_CT-T001._LF_MOBILE._LF_SUBSTYLE_BALLOON._LF_SMALL { width: 14.666vw; height: 11.851vw; }
+
+/*********** CT-T002 ************/
+._LF_CT-T002._LF_PC { /*1.2x*/ /*1.1x*/ /*1.0x*/ }
+._LF_CT-T002._LF_PC._LF_LARGE { width: 60px; height: 60px; }
+._LF_CT-T002._LF_PC._LF_MEDIUM { width: 55px; height: 55px; }
+._LF_CT-T002._LF_PC._LF_SMALL { width: 50px; height: 50px; }
+._LF_CT-T002._LF_MOBILE { /*1.2x*/ /*1.1x*/ /*1.0x*/ }
+._LF_CT-T002._LF_MOBILE._LF_LARGE { width: 12.666vw; height: 12.666vw; }
+._LF_CT-T002._LF_MOBILE._LF_MEDIUM { width: 11.610vw; height: 11.610vw; }
+._LF_CT-T002._LF_MOBILE._LF_SMALL { width: 10.555vw; height: 10.555vw; }
+
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BLACKROUND,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_TEALROUND,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PINKROUND,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PURPLEROUND,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BROWNROUND,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_GREENROUND{ /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BLACKROUND._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_TEALROUND._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PINKROUND._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PURPLEROUND._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BROWNROUND._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_GREENROUND._LF_LARGE { width: 60px; height: 60px; }
+
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BLACKROUND._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_TEALROUND._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PINKROUND._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PURPLEROUND._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BROWNROUND._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_GREENROUND._LF_MEDIUM { width: 52px; height: 52px; }
+
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BLACKROUND._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_TEALROUND._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PINKROUND._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PURPLEROUND._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BROWNROUND._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_GREENROUND._LF_SMALL { width: 45px; height: 45px; }
+
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BLACKROUND,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_TEALROUND,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PINKROUND,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PURPLEROUND,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BROWNROUND,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_GREENROUND { /*1.2x*/ /*1.1x*/ /*1.0x*/ }
+
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BLACKROUND._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_TEALROUND._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PINKROUND._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PURPLEROUND._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BROWNROUND._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_GREENROUND._LF_LARGE { width: 19vw; height: 19vw; }
+
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BLACKROUND._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_TEALROUND._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PINKROUND._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PURPLEROUND._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BROWNROUND._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_GREENROUND._LF_MEDIUM { width: 16vw; height: 16vw; }
+
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BLACKROUND._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_TEALROUND._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PINKROUND._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PURPLEROUND._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BROWNROUND._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_GREENROUND._LF_SMALL { width: 13vw; height: 13vw; }
+
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BLACKRIBBON,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_TEALRIBBON,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PINKRIBBON,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PURPLERIBBON,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BROWNRIBBON,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_GREENRIBBON{ /*1.1x*/ /*1.0*/ /*0.9x*/ }
+
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BLACKRIBBON._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_TEALRIBBON._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PINKRIBBON._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PURPLERIBBON._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BROWNRIBBON._LF_LARGE,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_GREENRIBBON._LF_LARGE { width: 55px; height: 77px; }
+
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BLACKRIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_TEALRIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PINKRIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PURPLERIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BROWNRIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_GREENRIBBON._LF_MEDIUM { width: 50px; height: 70px; }
+
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BLACKRIBBON._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_TEALRIBBON._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PINKRIBBON._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_PURPLERIBBON._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_BROWNRIBBON._LF_SMALL,
+._LF_CT-T002._LF_PC._LF_SUBSTYLE_GREENRIBBON._LF_SMALL { width: 45px; height: 63px; }
+
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BLACKRIBBON,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_TEALRIBBON,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PINKRIBBON,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PURPLERIBBON,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BROWNRIBBON,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_GREENRIBBON { /*1.2x*/ /*1.1x*/ /*1.0x*/ }
+
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BLACKRIBBON._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_TEALRIBBON._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PINKRIBBON._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PURPLERIBBON._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BROWNRIBBON._LF_LARGE,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_GREENRIBBON._LF_LARGE { width: 12.666vw; height: 17.766vw; }
+
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BLACKRIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_TEALRIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PINKRIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PURPLERIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BROWNRIBBON._LF_MEDIUM,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_GREENRIBBON._LF_MEDIUM { width: 11.610vw; height: 16.295vw; }
+
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BLACKRIBBON._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_TEALRIBBON._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PINKRIBBON._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_PURPLERIBBON._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_BROWNRIBBON._LF_SMALL,
+._LF_CT-T002._LF_MOBILE._LF_SUBSTYLE_GREENRIBBON._LF_SMALL { width: 10.555vw; height: 14.814vw; }
+
+/*********** CT-T003 ************/
+
+._LF_CT-T003._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-T003._LF_PC._LF_LARGE { width: 77px; height: 77px; }
+._LF_CT-T003._LF_PC._LF_MEDIUM { width: 70px; height: 70px; }
+._LF_CT-T003._LF_PC._LF_SMALL { width: 63px; height: 63px; }
+._LF_CT-T003._LF_MOBILE { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-T003._LF_MOBILE._LF_LARGE { width: 17.110vw; height: 17.212vw; }
+._LF_CT-T003._LF_MOBILE._LF_MEDIUM { width: 15.555vw; height: 15.648vw; }
+._LF_CT-T003._LF_MOBILE._LF_SMALL { width: 13.999vw; height: 14.083vw; }
+
+
+/*********** CT-T004 ************/
+
+._LF_CT-T004._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-T004._LF_PC._LF_LARGE { width: 90px; height: 77px; }
+._LF_CT-T004._LF_PC._LF_MEDIUM { width: 81px; height: 81px; }
+._LF_CT-T004._LF_PC._LF_SMALL { width: 72px; height: 72px; }
+._LF_CT-T004._LF_MOBILE { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-T004._LF_MOBILE._LF_LARGE { width: 16.295vw; height: 16.295vw; }
+._LF_CT-T004._LF_MOBILE._LF_MEDIUM { width: 14.814vw; height: 14.814vw; }
+._LF_CT-T004._LF_MOBILE._LF_SMALL { width: 13.332vw; height: 13.332vw; }
+
+
+/*********** CT-T005 ************/
+
+._LF_CT-T005._LF_PC { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-T005._LF_PC._LF_LARGE { width: 88px; height: 88px; }
+._LF_CT-T005._LF_PC._LF_MEDIUM { width: 80px; height: 80px; }
+._LF_CT-T005._LF_PC._LF_SMALL { width: 72px; height: 72px; }
+._LF_CT-T005._LF_MOBILE { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-T005._LF_MOBILE._LF_LARGE { width: 16.295vw; height: 16.295vw; }
+._LF_CT-T005._LF_MOBILE._LF_MEDIUM { width: 14.814vw; height: 14.814vw; }
+._LF_CT-T005._LF_MOBILE._LF_SMALL { width: 13.332vw; height: 13.332vw; }
+
+/*********** CT-T006 ************/
+
+._LF_CT-T006._LF_PC { /*1.2x*/ /*1.1x*/ /*1.0x*/ }
+._LF_CT-T006._LF_PC._LF_LARGE { width: 120px; height: 120px; }
+._LF_CT-T006._LF_PC._LF_MEDIUM { width: 110px; height: 110px; }
+._LF_CT-T006._LF_PC._LF_SMALL { width: 100px; height: 100px; } /* 74 * 74*/
+._LF_CT-T006._LF_MOBILE { /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_CT-T006._LF_MOBILE._LF_LARGE { width: 19.065vw; height: 19.065vw; }
+._LF_CT-T006._LF_MOBILE._LF_MEDIUM { width: 17.332vw; height: 17.332vw; } /* 80 * 80 */
+._LF_CT-T006._LF_MOBILE._LF_SMALL { width: 15.598vw; height: 15.598vw; }
+
+/*********** CT-T007 ************/
+
+._LF_CT-T007._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CT-T007._LF_PC._LF_LARGE { width: 60px; height: 60px; }
+._LF_CT-T007._LF_PC._LF_MEDIUM { width: 54px; height: 54px; }
+._LF_CT-T007._LF_PC._LF_SMALL { width: 48px; height: 48px; }
+._LF_CT-T007._LF_MOBILE { /*1.2x*/ /*1.1x*/ /*1.0x*/ }
+._LF_CT-T007._LF_MOBILE._LF_LARGE { width: 19vw; height: 19vw; }
+._LF_CT-T007._LF_MOBILE._LF_MEDIUM { width: 16vw; height: 16vw; }
+._LF_CT-T007._LF_MOBILE._LF_SMALL { width: 13vw; height: 13vw; }
+
+
+._LF_CT-T007._LF_PC._LF_SUBSTYLE_TITLE { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_CT-T007._LF_PC._LF_SUBSTYLE_TITLE._LF_LARGE { width: 210px; height: 40px; }
+._LF_CT-T007._LF_PC._LF_SUBSTYLE_TITLE._LF_MEDIUM { width: 189px; height: 36px; }
+._LF_CT-T007._LF_PC._LF_SUBSTYLE_TITLE._LF_SMALL { width: 168px; height: 32px; }
+._LF_CT-T007._LF_MOBILE._LF_SUBSTYLE_TITLE { /*1.2x*/ /*1.1x*/ /*1.0x*/ }
+._LF_CT-T007._LF_MOBILE._LF_SUBSTYLE_TITLE._LF_LARGE { width: 49.992vw; height: 12.666vw; }
+._LF_CT-T007._LF_MOBILE._LF_MEDIUM._LF_SUBSTYLE_TITLE { width: 45.832vw; height: 11.610vw; }
+._LF_CT-T007._LF_MOBILE._LF_SMALL._LF_SUBSTYLE_TITLE { width: 41.666vw; height: 10.555vw; }
+
+
+
+/*############################################################*/
+/* SUPPORT ACTIVE
+/*############################################################*/
+._LF_SUPPORT_ACTIVE._LF_MOBILE { width: 100%; height: 100%; top: 0 !important; left: 0 !important; bottom: 0 !important; right: 0 !important; }
+
+._LF_SA-BASIC-SLIDE-01._LF_PC { /*1.0x*/ /*0.85x*/ /*0.75x*/ }
+._LF_SA-BASIC-SLIDE-01._LF_PC._LF_LARGE { width: 460px; height: 100%; }
+._LF_SA-BASIC-SLIDE-01._LF_PC._LF_MEDIUM { width: 391px; height: 100%; }
+._LF_SA-BASIC-SLIDE-01._LF_PC._LF_SMALL { width: 345px; height: 100%; }
+._LF_SA-BASIC-SLIDE-01._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_SA-BASIC-SLIDE-01._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_SA-BASIC-SLIDE-01._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+._LF_SA-BASIC-SIMPLE-LIGHT-01._LF_PC { /*1.0x*/ /*0.85x*/ /*0.75x*/ }
+._LF_SA-BASIC-SIMPLE-LIGHT-01._LF_PC._LF_LARGE { width: 568px; height: 690px; }
+._LF_SA-BASIC-SIMPLE-LIGHT-01._LF_PC._LF_MEDIUM { width: 483px; height: 587px; }
+._LF_SA-BASIC-SIMPLE-LIGHT-01._LF_PC._LF_SMALL { width: 426px; height: 518px; }
+._LF_SA-BASIC-SIMPLE-LIGHT-01._LF_MOBILE._LF_LARGE { /* 100% Size */ }
+._LF_SA-BASIC-SIMPLE-LIGHT-01._LF_MOBILE._LF_MEDIUM { /* 100% Size */ }
+._LF_SA-BASIC-SIMPLE-LIGHT-01._LF_MOBILE._LF_SMALL { /* 100% Size */ }
+
+
+/*############################################################*/
+/* SUPPORT ALERT
+/*############################################################*/
+
+._LF_SL-B001 { width: 295px; height: 247px; }
+
+
+/*############################################################*/
+/* SUPPORT TRIGGER
+/*############################################################*/
+/*********** COMMON ************/
+._LF_SUPPORT_TRIGGER._LF_EXTEND { display: none; }
+
+/*******************************/
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-LIGHT-01._LF_PC._LF_LARGE { width: 70px; height: 70px; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-LIGHT-01._LF_PC._LF_MEDIUM { width: 62px; height: 62px; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-LIGHT-01._LF_PC._LF_SMALL { width: 55px; height: 55px; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-LIGHT-01._LF_MOBILE._LF_LARGE { width: 19vw; height: 19vw; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-LIGHT-01._LF_MOBILE._LF_MEDIUM { width: 16vw; height: 16vw; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-LIGHT-01._LF_MOBILE._LF_SMALL { width: 13vw; height: 13vw; }
+
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-01._LF_PC._LF_LARGE { width: 60px; height: 60px; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-01._LF_PC._LF_MEDIUM { width: 52px; height: 52px; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-01._LF_PC._LF_SMALL { width: 45px; height: 45px; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-01._LF_MOBILE._LF_LARGE { width: 19vw; height: 19vw; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-01._LF_MOBILE._LF_MEDIUM { width: 16vw; height: 16vw; }
+._LF_ST-BASIC-SINGLE-BUTTON-CIRCLE-01._LF_MOBILE._LF_SMALL { width: 13vw; height: 13vw; }
+
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-LIGHT-01._LF_PC._LF_LARGE { width: 70px; height: 70px; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-LIGHT-01._LF_PC._LF_MEDIUM { width: 62px; height: 62px; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-LIGHT-01._LF_PC._LF_SMALL { width: 55px; height: 55px; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-LIGHT-01._LF_MOBILE._LF_LARGE { width: 19vw; height: 19vw; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-LIGHT-01._LF_MOBILE._LF_MEDIUM { width: 16vw; height: 16vw; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-LIGHT-01._LF_MOBILE._LF_SMALL { width: 13vw; height: 13vw; }
+
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-01._LF_PC._LF_LARGE { width: 60px; height: 60px; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-01._LF_PC._LF_MEDIUM { width: 52px; height: 52px; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-01._LF_PC._LF_SMALL { width: 45px; height: 45px; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-01._LF_MOBILE._LF_LARGE { width: 19vw; height: 19vw; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-01._LF_MOBILE._LF_MEDIUM { width: 16vw; height: 16vw; }
+._LF_ST-BASIC-SINGLE-BUTTON-SQUARE-01._LF_MOBILE._LF_SMALL { width: 13vw; height: 13vw; }
+
+._LF_ST-BASIC-SINGLE-TAB-ROUND-LIGHT-01._LF_PC._LF_LARGE { width: 48px; height: 140px; }
+._LF_ST-BASIC-SINGLE-TAB-ROUND-LIGHT-01._LF_PC._LF_MEDIUM { width: 42px; height: 120px; }
+._LF_ST-BASIC-SINGLE-TAB-ROUND-LIGHT-01._LF_PC._LF_SMALL { width: 37px; height: 105px; }
+._LF_ST-BASIC-SINGLE-TAB-ROUND-LIGHT-01._LF_MOBILE._LF_LARGE { width: 11.5vw; height: 36.7vw; }
+._LF_ST-BASIC-SINGLE-TAB-ROUND-LIGHT-01._LF_MOBILE._LF_MEDIUM { width: 10vw; height: 31.7vw; }
+._LF_ST-BASIC-SINGLE-TAB-ROUND-LIGHT-01._LF_MOBILE._LF_SMALL { width: 8.5vw; height: 27.4vw; }
+
+._LF_ST-BASIC-SINGLE-TAB-SQUARE-LIGHT-01._LF_PC._LF_LARGE { width: 48px; height: 140px; }
+._LF_ST-BASIC-SINGLE-TAB-SQUARE-LIGHT-01._LF_PC._LF_MEDIUM { width: 42px; height: 121px; }
+._LF_ST-BASIC-SINGLE-TAB-SQUARE-LIGHT-01._LF_PC._LF_SMALL { width: 37px; height: 105px; }
+._LF_ST-BASIC-SINGLE-TAB-SQUARE-LIGHT-01._LF_MOBILE._LF_LARGE { width: 11.5vw; height: 36.7vw; }
+._LF_ST-BASIC-SINGLE-TAB-SQUARE-LIGHT-01._LF_MOBILE._LF_MEDIUM { width: 10vw; height: 31.7vw; }
+._LF_ST-BASIC-SINGLE-TAB-SQUARE-LIGHT-01._LF_MOBILE._LF_SMALL { width: 8.5vw; height: 27.4vw; }
+
+._LF_ST-BASIC-MULTI-BUTTON-SQUARE-01._LF_PC { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_ST-BASIC-MULTI-BUTTON-SQUARE-01._LF_PC._LF_LARGE { width: 67px; height: 259px; }
+._LF_ST-BASIC-MULTI-BUTTON-SQUARE-01._LF_PC._LF_MEDIUM { width: 60.3px; height: 233.1px; }
+._LF_ST-BASIC-MULTI-BUTTON-SQUARE-01._LF_PC._LF_SMALL { width: 53.6px; height: 207.2px; }
+._LF_ST-BASIC-MULTI-BUTTON-SQUARE-01._LF_MOBILE { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_ST-BASIC-MULTI-BUTTON-SQUARE-01._LF_MOBILE._LF_LARGE { width: 12.8vw; height: 57.4vw; }
+._LF_ST-BASIC-MULTI-BUTTON-SQUARE-01._LF_MOBILE._LF_MEDIUM { width: 11.52vw; height: 51.66vw; }
+._LF_ST-BASIC-MULTI-BUTTON-SQUARE-01._LF_MOBILE._LF_SMALL { width: 10.24vw; height: 45.92vw; }
+
+._LF_ST-BASIC-MULTI-BUTTON-ROUND-01._LF_PC {  /*1.1x*/ /*1.0x*/ /*0.9x*/ }
+._LF_ST-BASIC-MULTI-BUTTON-ROUND-01._LF_PC._LF_LARGE { width: 73.7px; height: 269.5px; }
+._LF_ST-BASIC-MULTI-BUTTON-ROUND-01._LF_PC._LF_MEDIUM { width: 67px; height: 245px; }
+._LF_ST-BASIC-MULTI-BUTTON-ROUND-01._LF_PC._LF_SMALL { width: 60.3px; height: 216px; }
+._LF_ST-BASIC-MULTI-BUTTON-ROUND-01._LF_MOBILE { /*1.0x*/ /*0.9x*/ /*0.8x*/ }
+._LF_ST-BASIC-MULTI-BUTTON-ROUND-01._LF_MOBILE._LF_LARGE { width: 11.3vw; height: 52vw; }
+._LF_ST-BASIC-MULTI-BUTTON-ROUND-01._LF_MOBILE._LF_MEDIUM { width: 10.17vw; height: 46.8vw; }
+._LF_ST-BASIC-MULTI-BUTTON-ROUND-01._LF_MOBILE._LF_SMALL { width: 9.04vw; height: 41.6vw; }
+

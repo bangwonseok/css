@@ -1,0 +1,170 @@
+var _FRAME = {
+	client : {
+		frame : window.parent,
+		frameName : "LIVEFEED"
+	},
+	socket : {
+		frame : null,
+		$frame: null,
+		frameName : "_LF_SOCKET",
+		defaultUrl : "/ui/common/html/socket.html",
+		appended : false,
+		loaded : false
+	},
+	chatActive : {
+		frame : null,
+		$frame: null,
+		frameName : "_LF_CHAT_ACTIVE",
+		defaultUrl : "",
+		appended : false,
+		loaded : false,
+		displayed: false
+	},
+	chatTrigger : {
+		frame : null,
+		$frame: null,
+		frameName : "_LF_CHAT_TRIGGER",
+		defaultUrl : "",
+		appended : false,
+		loaded : false,
+		displayed: false
+
+	},
+	chatAlert : {
+		frame : null,
+		$frame: null,
+		frameName : "_LF_CHAT_ALERT",
+		defaultUrl : "",
+		appended : false,
+		loaded : false,
+		displayed: false
+	},
+	imageViewer : {
+		frame : null,
+		$frame: null,
+		frameName : "_LF_IMAGE_VIEWER",
+		defaultUrl : "/ui/template/imageViewer/IV-COMMON-01/template.html",
+		appended : false,
+		loaded : false,
+		displayed: false
+	}
+};
+
+
+_FRAME.get = function(name){
+	try {
+		var frame = _FRAME[name].frame;
+
+		if(_UTIL.isNull(frame)){
+			frame = window[_FRAME[name].frameName];
+		}
+		if(_UTIL.isNull(frame)){
+			frame = parent.window[_FRAME[name].frameName];
+		}
+
+		return frame;
+	}catch(e){
+		_UTIL.logError("could't find frame : " + name);
+		return {postMessage : function(){}};
+
+	}
+
+
+
+}
+
+_FRAME.$get = function(name){
+	return _FRAME[name].$frame;
+}
+
+_FRAME.set = function(name, frame){
+
+}
+
+_FRAME.append = function(name, url, param, size, parent){
+	var config = _FRAME[name];
+
+	if(_UTIL.isEmpty(url)){
+		url = config.defaultUrl;
+	}
+	if(_UTIL.isNotEmpty(param)){
+		url += "?" + jQuery.param(param);
+	}
+
+
+	var $frame = jQuery('<iframe frameborder="0" scrolling="no" data-html2canvas-ignore="true" allowTransparency="true" style="visibility:hidden;" onload="this.style.visibility = \'visible\'" />');
+	$frame.addClass("_LF_FRAME");
+	$frame.addClass(config.frameName);
+	if(_UTIL.isMobile()){
+		$frame.addClass("_LF_MOBILE");
+	}else if(_UTIL.isFullUi()){
+		$frame.addClass("_LF_EXTEND");
+	}else{
+		$frame.addClass("_LF_PC");
+	}
+
+	if(typeof size != "undefined" && size != null && size != ""){
+		$frame.addClass("_LF_" + size.toUpperCase());
+	}
+
+	$frame.attr("name", config.frameName);
+	$frame.attr("id", config.frameName);
+	$frame.attr("src", _SERVICE_CONFIG.staticServerUrl + url);
+	$frame.hide();
+
+
+	if(parent == "html"){
+		jQuery("html").first().append($frame);
+	}else{
+		jQuery(document.body).append($frame);
+	}
+
+
+	config.frame = window[config.frameName];
+	config.$frame = $frame;
+
+	return $frame;
+}
+
+_FRAME.setPositionByConfig = function($frame, uiConfig){
+	var classPrefix = "_LF_";
+	var deviceType = _UTIL.getDeviceType(); // pc or mobile
+
+	$frame.addClass(classPrefix + uiConfig[deviceType].template.toUpperCase());
+	$frame.addClass(classPrefix + "SUBSTYLE_" + (uiConfig[deviceType].subStyle).toUpperCase());
+
+	var width = $frame.width();
+	var height = $frame.height();
+	var vMargin = parseInt(uiConfig[deviceType].verticalMargin);
+	var hMargin = parseInt(uiConfig[deviceType].horizontalMargin);
+
+	switch(uiConfig[deviceType].verticalAlign){
+		case "top":
+			$frame.css({"top": vMargin});
+			break;
+		case "middle":
+			$frame.css({"top": "50%", "margin-top": -(height/2) + vMargin});
+			break;
+		case "bottom":
+			$frame.css({"bottom": vMargin});
+			break;
+		default:
+			$frame.css({"top": 0});
+			break;
+	}
+
+	switch(uiConfig[deviceType].horizontalAlign){
+		case "left":
+			$frame.css({"left": hMargin});
+			break;
+		case "center":
+			$frame.css({"left": "50%", "margin-left": -(width/2) + hMargin});
+			break;
+		case "right":
+			$frame.css({"right": hMargin});
+			break;
+		default:
+			$frame.css({"left": 0});
+			break;
+	}
+}

@@ -1,0 +1,723 @@
+@charset "utf-8";
+
+
+
+
+* { padding:0; margin:0; font-family: 'Malgun Gothic', 'MalgunGothic', '맑은 고딕', '맑은고딕'; }
+a { color: gray;}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+/*############################################################*/
+/* COMMON
+/*############################################################*/
+
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: #d8d8d8;
+}
+
+body {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+body.mobile { -webkit-text-size-adjust: 100%; }
+
+/* 이미지 픽셀 유지 속성 => 스케일링 때문에 너무 품질이 낮아짐 */
+/**{*/
+    /*-ms-interpolation-mode: nearest-neighbor; !* IE 7+ (non-standard property) *!*/
+    /*image-rendering: -webkit-optimize-contrast; !* // Safari 6, UC Browser 9.9 *!*/
+    /*image-rendering: -webkit-crisp-edges; !* // Safari 7+ *!*/
+    /*image-rendering: -moz-crisp-edges; !* // Firefox 3.6+ *!*/
+    /*image-rendering: -o-crisp-edges; !* // Opera 12 *!*/
+    /*image-rendering: pixelated;*/ /*  // Chrome 41+ and Opera 26+ */
+/*}*/
+
+*{
+    -ms-interpolation-mode: bicubic;
+    image-rendering: optimizeQuality;
+}
+
+/*############################################################*/
+/* FRAME
+/*############################################################*/
+.extend .frame { zoom: 1 !important;}
+.mobile .frame { zoom: 1 !important;}
+
+
+/*############################################################*/
+/* FOR JAVASCRIPT
+/*############################################################*/
+
+._template { display: none; }
+._hide { display: none; }
+._keyword { color: red; font-weight: bold;}
+
+
+
+/*############################################################*/
+/* 채팅
+/*############################################################*/
+
+input.file { display:none; }
+
+
+#chatView > *:first-child{
+    margin-top: 14px !important;
+}
+#chatView > *:last-child{
+    margin-bottom: 5px !important;
+}
+
+/* 날짜표시선 */
+.chatDate {
+	font-family: verdana;
+	font-weight: normal;
+}
+
+
+/* 입력상자 */
+#chatWrap #textBox {
+    scrollbar-3dLight-Color: #efefef;
+    scrollbar-arrow-color: #dfdfdf;
+    scrollbar-base-color: #efefef;
+    scrollbar-Face-Color: #dfdfdf;
+    scrollbar-Track-Color: #fff;
+    scrollbar-DarkShadow-Color: #efefef;
+    scrollbar-Highlight-Color: #efefef;
+    scrollbar-Shadow-Color: #efefef
+}
+
+#chatWrap #textBox:disabled{
+    background-color: transparent;
+}
+
+
+
+/* 원격지원 */
+.message .remote-support-info{
+    font-size: 14px;
+    background: url(../image/ico.remote.info.png) left top no-repeat;
+    padding-left: 25px;
+}
+.message .remote-support-info, .message .remote-support-info2   {
+    display: inline-block;
+    font-weight: bold;
+    color: #32302e;
+}
+
+.message .remote-support-info2{
+    display: block;
+    text-align: center;
+    padding-bottom: 8px;
+    font-size: 13px;
+}
+
+.remote-support-info2 + .img-container img{
+    height: auto !important;
+}
+
+.message .btn-remote-execute{
+    background: url(../image/btn.remote.execute.ko.png) no-repeat;
+    background-size: 130px 32px;
+    width: 130px;
+    height: 32px;
+    cursor:pointer;
+    margin:5px 5px;
+    border: 0;
+    display: block;
+}
+
+body.mobile .message .remote-support-info,
+body.mobile .message .remote-support-info2{
+    font-size: 4.1vw;
+}
+
+body.mobile .message .remote-support-info{
+    background-size: 4vw;
+    padding-left: 6vw;
+    background-position: 0 1vw;
+}
+
+
+body.mobile .message .btn-remote-execute{
+    width: 34vw;
+    height: 8vw;
+    background-size: cover;
+    margin: 2vw auto;
+}
+
+/* 파일타입 */
+.message a.file{
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+.message a.file .fileSize{
+    color: inherit;
+}
+
+.message img { width: 100%; max-height: 200px; }
+
+/*############################################################*/
+/* 고객지원
+/*############################################################*/
+
+#supportWrap .list.empty{
+    background: url(../image/ico.no.list.png) no-repeat center center;
+}
+
+body.mobile #supportWrap .list.empty{
+    background: url(../image/mobile.ico.no.list.png) no-repeat center center;
+    background-size: 50%;
+}
+
+#supportWrap .list img {
+    max-width: 100% !important;
+    cursor: pointer;
+}
+
+
+/* USER AGREEMENT */
+#userAgreement {
+    position: absolute;
+    width: 90.743vw;
+    /*height: 82.569vw;*/
+    top: 50%;
+    left: 50%;
+    margin-left: calc(-90.743vw/2);
+    margin-top: calc(-93.569vw/2);
+    border: 1px solid #32302e;
+    /*border-radius: 1vw;*/
+    padding-top: 7.792vw;
+    padding-left: 3.896vw;
+    padding-right: 3.896vw;
+    /*padding-bottom: 6.811vw;*/
+    padding-bottom: 8.961vw;
+    box-sizing: border-box;
+    box-shadow: 0 1.362vw 1.362vw 0 rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    background-color: #fff;
+}
+#userAgreement .header{
+    background: url(../image/icon.agreement.png) no-repeat left top;
+    background-size: 5.974vw 5.454vw;
+    color: #32302e;
+    font-size: 3.636vw;
+    padding-top: 8.701vw;
+    font-weight: bold;
+}
+
+#userAgreement .body{
+    /*border: 1px solid #e5e5e5;*/
+    /*border-top: 1px solid #32302e;*/
+    background-color: #f6f6f6;
+    /*padding: 1.714vw 3.814vw;*/
+    padding: 3.766vw 4.025vw;
+    color: #32302e;
+    margin-top: 5.064vw;
+    height: 33.766vw;
+}
+
+#userAgreement .body{
+    font-size: 3.116vw;
+}
+#userAgreement .body h1{
+    color: #333333;
+    font-size: 3.636vw;
+}
+
+#userAgreement .body ul{
+    margin-top: 4.155vw;
+    list-style: none;
+    /*line-height: 1.4;*/
+    line-height: 4.6vw;
+}
+
+
+#userAgreement .body ul li{
+    padding-left: 2.297vw;
+    background: url(../image/bullet.png) no-repeat left 1.6vw;
+    background-size: 0.779vw;
+}
+
+#userAgreement .body ul li > *{
+    display: inline-block;
+    vertical-align: top;
+}
+
+#userAgreement .body ul li > strong{
+    font-weight: 400;
+}
+
+#userAgreement .body ul li > span{
+    letter-spacing: -0.17vw;
+}
+
+#userAgreement .userAgreementCancelButton{
+    position: absolute;
+    top: 2.7214vw;
+    right: 2.7214vw;
+    display: inline-block;
+    width: 3.814vw;
+    height: 3.814vw;
+    background: url(../image/btn.user.agreement.close.png) no-repeat center center;
+    background-size: contain;
+    font-size: 0;
+    -webkit-appearance: none;
+    border: 0;
+    cursor: pointer;
+}
+
+#userAgreement .footer{
+    margin-top: 5.064vw;
+    text-align: center;
+}
+
+#userAgreement .footer > button{
+    display: inline-block;
+    -webkit-appearance: none;
+    border: 0;
+    cursor: pointer;
+    /*font-size: 3.814vw;*/
+    font-size: 0;
+    color: #fff;
+    width: 18.181vw;
+    height: 7.792vw;
+    /*padding-bottom: 1.089vw;*/
+    box-sizing: border-box;
+    /*border-radius: 1vw;*/
+    background-size: contain !important;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+
+#userAgreement .footer .userAgreementRejectionButton{
+    background: url(../image/btn.user.agreement.rejection.png) no-repeat center center;
+}
+
+#userAgreement .footer .userAgreementDoneButton{
+    background: url(../image/btn.user.agreement.done.png) no-repeat center center;
+}
+
+
+#chatWrap #chatViewPart .messageBox .message{
+    width: 100% !important;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+}
+
+
+.messageBox.sameSender .profileImage{
+    visibility: hidden;
+}
+
+.messageBox.user.sameSender .messageWrap:before,
+.messageBox.manager.sameSender .messageWrap:before{
+    display: none;
+}
+
+.messageBox.sameTime .messageTime{
+    display: none !important;
+}
+
+
+/* SYSTEM FORM */
+
+.messageBox.systemForm{
+    position: relative;
+    margin-top: 15px;
+    padding-right: 6px;
+    padding-left: 38px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.messageBox.systemForm:before{
+    position: absolute;
+    top: 0;
+    left: 0px;
+    content: "";
+    display: inline-block;
+    background-image: url(../image/systemForm/icon.system.bot.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #32302e;
+    background-size: 28px 28px;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+}
+
+.messageBox.systemForm .formWrap{
+    max-width: 100%;
+    display: block;
+    line-height: 14px;
+    padding-top : 14px;
+    padding-bottom : 14px;
+    padding-right: 14px;
+    font-size: 12px;
+    color: #666666;
+    background-color: transparent;
+    border: 1px solid #acacac;
+    border-radius: 7px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+}
+
+.messageBox.systemForm .formWrap > *{
+    margin-left: 14px;
+}
+
+.messageBox.systemForm p{
+    font-size: 13px;
+    color: #333;
+    white-space: pre-line;
+    word-spacing: -0.5px;
+    letter-spacing: -1px;
+    line-height: 18px;
+}
+
+.messageBox.systemForm p + *{
+    margin-top: 13px;
+}
+
+.messageBox.systemForm .inputForm{
+    display: flex;
+    position: relative;
+    padding-left: 24px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+
+.messageBox.systemForm .inputForm + .inputForm{
+    margin-top: 4px;
+}
+
+.messageBox.systemForm .emailForm{
+    background-size: 14px 11px;
+    background-image: url(../image/systemForm/icon.mail.png);
+    background-position: left center;
+}
+
+.messageBox.systemForm .telForm{
+    background-size: 10px 14px;
+    background-image: url(../image/systemForm/icon.tel.png);
+    background-position: left 2px center;
+}
+
+.messageBox.systemForm .systemFormInput{
+    -webkit-appearance: none;
+    appearance: none;
+    height: 32px;
+    background-color: #eeeeee;
+    font-size: 12px;
+    color: #333333;
+    border: 0;
+    padding: 0 8px;
+    border-radius: 6px;
+    flex: 1;
+    word-spacing: -0.5px;
+    letter-spacing: -0.6px;
+    box-sizing: border-box;
+
+}
+
+.messageBox.systemForm .inputForm.complete .systemFormInput{
+    background-color: #fff;
+    border-radius: 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.messageBox.systemForm .systemFormInput::placeholder{
+    color: #888888;
+}
+
+.messageBox.systemForm button{
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 0;
+    font-size: 0;
+}
+
+.messageBox.systemForm .sendButton{
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    background-image: url(../image/systemForm/button.system.form.send.png);
+    background-size: 12px 14px;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: 0.2s;
+}
+
+.messageBox.systemForm .systemFormInput:focus + .sendButton{
+    background-image: url(../image/systemForm/button.system.form.send.hover.png);
+}
+.messageBox.systemForm .inputForm.complete .sendButton{
+    right: 5px;
+    background-image: url(../image/systemForm/icon.system.form.complete.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px 13px;
+}
+
+
+.messageBox.systemForm .formWrap.confirm p{
+    min-height: 128px;
+}
+
+.messageBox.systemForm .formWrap.confirm.type1 .buttonWrap{
+    display: flex;
+    border-top: 1px solid #d8d8d8;
+    padding-top: 5px;
+}
+
+.messageBox.systemForm .formWrap.confirm.type1 button{
+    height: 32px;
+    font-size: 12px;
+    border-radius: 7px;
+    background-color: #eeeeee;
+    color: #32302e;
+    flex: 1;
+}
+
+.messageBox.systemForm .formWrap.confirm.type1 button + button{
+    margin-left: 4px;
+    background-color: #32302e;
+    color: #fff;
+}
+
+
+.messageBox.systemForm .formWrap.confirm.type2{
+    padding: 0;
+}
+
+.messageBox.systemForm .formWrap.confirm.type2 p{
+    padding: 17px 15px;
+}
+
+.messageBox.systemForm .formWrap.confirm.type2 .buttonWrap{
+    display: flex;
+    border-top: 1px solid #d8d8d8;
+    border-radius: 0 0  15px 15px;
+}
+
+.messageBox.systemForm .formWrap.confirm.type2 button{
+    height: 44px;
+    font-size: 12px;
+    background-color: #fff;
+    color: #32302e;
+    flex: 1;
+    border-radius: 0 0 0 15px;
+
+}
+.messageBox.systemForm .formWrap.confirm.type2 button + button{
+    font-weight: 700;
+    border-left: 1px solid #d8d8d8;
+    border-radius: 0 0 15px 0;
+}
+
+
+
+.messageBox.systemForm .formWrap.confirmComplete{
+    padding-top: 43px;
+    padding-bottom: 43px;
+    color: #333;
+    text-align: center;
+}
+
+.messageBox.systemForm .formWrap.confirmComplete .text1{
+    margin-top: 3px;
+    padding-top: 36px;
+    background-image: url(../image/systemForm/icon.complete.png);
+    background-position: top 3px center;
+    background-repeat: no-repeat;
+    background-size: 29px 26px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.messageBox.systemForm .formWrap.confirmComplete .text2{
+    margin-top: 18px;
+    border-top: 1px solid #eeeeee;
+    padding-top:9px;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.messageBox.systemForm + .messageBox.systemForm{
+    margin-top: 10px;
+}
+
+/* 스크롤 다운 버튼 */
+#chatScrollDownButtonWrap{
+    opacity: 0;
+    z-index: -1;
+    position: absolute;
+    bottom: 101px;
+    right: 27px;
+    transition: 0.2s;
+}
+
+#chatScrollDownButtonWrap.show{
+    opacity: 1;
+    z-index: 99;
+}
+
+#newMessageCount{
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 13px;
+    color: #fff;
+    min-width: 14px;
+    min-height: 14px;
+    border-radius: 7px;
+    text-align: center;
+    background-color: #ff4800;
+    transition: opacity 0.3s;
+    opacity: 0;
+    padding: 1px;
+}
+
+#newMessageCount.showCount{
+    opacity: 1;
+}
+
+#chatScrollDownButton{
+    cursor: pointer;
+    margin-top: 7px;
+    font-size: 0;
+    border: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background-size: 12px;
+    background-position: center;
+    background-image: url(../image/ico.scroll.down.button.png);
+    background-color: rgba(50, 48, 46, 0.6);
+    background-repeat: no-repeat;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+body.mobile #chatScrollDownButtonWrap{
+    bottom: 86px;
+    right: 22px;
+    transition: 0.2s;
+}
+
+body.mobile .messageBox.systemForm .sendButton{
+    background-image: url(../image/systemForm/mobile.button.system.form.send.png);
+}
+body.mobile .messageBox.systemForm .systemFormInput:focus + .sendButton{
+    background-image: url(../image/systemForm/mobile.button.system.form.send.hover.png);
+}
+
+
+body.mobile .messageBox.systemForm p{
+    font-size: 15px;
+}
+
+body.mobile .messageBox.systemForm + .messageBox.systemForm{
+    margin-top: 16px;
+}
+
+body.mobile .messageBox.systemForm:before{
+    background-image: url(../image/systemForm/mobile.icon.system.bot.png);
+}
+
+body.mobile .messageBox.systemForm .formWrap.confirmComplete{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+body.mobile .messageBox.systemForm .formWrap.confirmComplete .text1{
+    padding-top: 42px;
+    background-size: 31px 28px;
+    background-image: url(../image/systemForm/mobile.icon.complete.png);
+}
+
+body.mobile .messageBox.systemForm .emailForm{
+    background-image: url(../image/systemForm/mobile.icon.mail.png);
+}
+
+body.mobile .messageBox.systemForm .telForm{
+    background-image: url(../image/systemForm/mobile.icon.tel.png);
+}
+body.mobile .messageBox.systemForm .inputForm.complete .sendButton{
+    background-image: url(../image/systemForm/mobile.icon.system.form.complete.png);
+}
+
+
+
+
+/* 스크롤 플러그인 커스텀 스타일 */
+.mCSB_scrollTools{width: 6px !important;}
+.mCSB_inside > .mCSB_container{margin-right: 10px !important;}
+
+
+.mCS-my-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{ background-color: rgba(0,0,0,0.1); }
+.mCS-my-theme.mCSB_scrollTools .mCSB_draggerRail{ background-color: transparent; }
+.mCS-my-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{ background-color: rgba(109, 104, 104, 0.4); }
+.mCS-my-theme.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{ background-color: rgba(109, 104, 104, 0.4); }
+.mCS-my-theme.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCS-my-theme.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{ background-color: rgba(109, 104, 104, 0.4); }
+
+
+
+/* FILE DRAG & DROP */
+/* Chrome 29+ */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+and (min-resolution:.001dpcm) {
+    #chatWrap { position: relative; }
+
+    #dragLayer > span {
+        font-size: 12px;
+        color: gray;
+    }
+
+    #chatWrap.dragover * { pointer-events: none; }
+    #chatWrap.dragover #dragLayer {
+        display: flex;
+    }
+    #chatWrap.dragover #chatView {
+        display: none;
+    }
+}
+
+#dragLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eeeeee;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    outline: 2px dashed silver;
+    outline-offset: -15px;
+    border-radius: 10px;
+}

@@ -1,0 +1,61 @@
+/**
+* CodeFty 공통
+*
+*/
+var CodeFty = CodeFty || {};
+
+/**
+* 안내팝업 
+*
+* @param Integer idx 안내팝업 번호
+* @param Object obj - this
+*/
+CodeFty.guidePopup = function(idx, obj) {
+	if (!idx) return false;
+	var popup = document.querySelector(".goods_guide_popup");
+	if (!popup) return false;
+	
+	if (obj) {
+		var rect = obj.getBoundingClientRect();
+		popup.style.top = (window.pageYOffset + rect.top - 150) + "px";
+	}
+	
+	if (!popup.classList.contains('dn')) {
+		popup.classList.add('dn');
+	}
+	var url = "../goods/ajax_guide_popup.php?idx=" + idx;
+	var req = new XMLHttpRequest();
+	req.addEventListener('load', function() {
+		var data = req.responseText;
+		if (data) {
+			data = JSON.parse(data);
+			var mainTitle = document.querySelector(".goods_guide_popup .main_title");
+			var subTitle = document.querySelector(".goods_guide_popup .sub_title");
+			var contentBox = document.querySelector(".goods_guide_popup .content_box");
+			if (mainTitle) mainTitle.innerHTML = data.mainTitle;
+			if (subTitle) subTitle.innerHTML = data.subTitle;
+			if (contentBox) contentBox.innerHTML = data.contents;
+			
+			popup.classList.remove('dn');
+		}
+	}, false);
+
+	req.open('GET', url, true);
+	req.send(null);
+}
+
+window.addEventListener('load', function(e) {
+	/* 안내팝업 닫기 S */
+	var guidePopupClose =  document.querySelector(".goods_guide_popup .close_popup");
+	if (guidePopupClose) {
+		guidePopupClose.addEventListener("click", function(e) {
+			var popup = document.querySelector(".goods_guide_popup");
+			if (popup) {
+				if (!popup.classList.contains('dn')) {
+					popup.classList.add('dn');
+				}
+			}
+		}, false);
+	}
+	/* 안내팝업 닫기 E */
+}, false);

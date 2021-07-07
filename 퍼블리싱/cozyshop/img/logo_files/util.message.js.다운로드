@@ -1,0 +1,119 @@
+///////////////////////////////////////////////////////////////
+// POSTMESSAGE
+///////////////////////////////////////////////////////////////
+var _MESSAGE = {};
+
+// POST MESSAGE HANDLER FOR ALL EVENT (dispatcher)
+_MESSAGE.handlerList = [];
+_MESSAGE.handlerDefault = function(){};
+_MESSAGE.handle = function(e){
+
+	if(_UTIL.isOldIE()){ return; }
+
+
+	if(_UTIL.isContain(e.data, "condition") == false || _UTIL.isContain(e.data, "from") == false){
+		_UTIL.logLine("INVALID MESSAGE CONDITION");
+		return;
+	}
+
+	var data = JSON.parse(e.data);
+	var messageCondition = data.condition;
+	var messageData = data.data;
+
+	if(typeof messageCondition === "undefined"){ _UTIL.logLine("UNDEFINED MESSAGE CONDITION"); return; }
+	if(typeof messageCondition.name === "undefined"){ _UTIL.logLine("UNDEFINED MESSAGE NAME"); return; }
+
+	_UTIL.log("◁◁◁ from " + messageCondition.from + " [◆MESSAGE◆] " + messageCondition.name, messageCondition, messageData);
+
+	var i = _MESSAGE.handlerList.length;
+	while(i--){
+		var handlerCondition = _MESSAGE.handlerList[i].condition;
+		var handler = _MESSAGE.handlerList[i].handler;
+		var ontimeOnly = _MESSAGE.handlerList[i].onetimeOnly;
+
+		if(typeof handlerCondition.name != "undefined" && messageCondition.name != handlerCondition.name){ continue; }
+		if(typeof handlerCondition.from != "undefined" && messageCondition.from != handlerCondition.from){ continue; }
+		if(typeof handlerCondition["class"] != "undefined" && messageCondition["class"] != handlerCondition["class"]){ continue; }
+
+		handler(messageData);
+
+		if(ontimeOnly){
+			_UTIL.logLine("HANDLER REMOVED :" + messageCondition.name);
+			_MESSAGE.handlerList.splice(i,1);
+		}
+		return;
+	}
+
+	_MESSAGE.handlerDefault(messageCondition, messageData);
+};
+
+// ADD HANDLER FOR POST MESSAGE
+_MESSAGE.on = function(condition, handler, onetimeOnly){
+	_MESSAGE.handlerList.push({condition: condition, handler: handler, onetimeOnly: onetimeOnly});
+};
+_MESSAGE.onDefault = function(handler){
+	_MESSAGE.handlerDefault = handler;
+};
+
+// SEND POST MESSAGE TO FRAME
+_MESSAGE.send = function(frameName, condition, data){
+
+	if(_UTIL.isEmpty(condition.from)){
+		condition.from = _UTIL.iam;
+	}
+	_UTIL.log("▶▶▶ to " + frameName + " [◆MESSAGE◆] " + condition.name, condition, data);
+
+	if(_UTIL.isNotNull(JSON) && _FRAME.get(frameName)){
+		_FRAME.get(frameName).postMessage(JSON.stringify({condition: condition, data : data}), "*");
+	}
+};
+
+
+// SET POST MESSAGE EVENT HANDLER
+if (window.addEventListener){
+	window.addEventListener('message', _MESSAGE.handle, false);
+}else{
+	window.attachEvent('onmessage', _MESSAGE.handle);
+}
+
+
+// PRE DEFINED SHORTHAND MESSAGE FUNCTION
+_MESSAGE.on.client = function(name, handler, onetimeOnly) {
+	_MESSAGE.on({name: name, from: "client"}, handler, onetimeOnly);
+};
+_MESSAGE.on.socket = function(name, handler, onetimeOnly) {
+	_MESSAGE.on({name: name, from: "socket"}, handler, onetimeOnly);
+};
+_MESSAGE.on.chatActive = function(name, handler, onetimeOnly){
+	_MESSAGE.on({name:name, from:"chatActive"}, handler);
+};
+_MESSAGE.on.chatTrigger = function(name, handler, onetimeOnly){
+	_MESSAGE.on({name:name, from:"chatTrigger"}, handler, onetimeOnly);
+};
+_MESSAGE.on.chatAlert = function(name, handler, onetimeOnly){
+	_MESSAGE.on({name:name, from:"chatAlert"}, handler, onetimeOnly);
+};
+_MESSAGE.on.imageViewer = function(name, handler, onetimeOnly){
+	_MESSAGE.on({name:name, from:"imageViewer"}, handler, onetimeOnly);
+};
+
+
+_MESSAGE.send.client = function(name, data) {
+	_MESSAGE.send("client", {name: name}, data);
+};
+_MESSAGE.send.socket = function(name, data) {
+	_MESSAGE.send("socket", {name: name}, data);
+};
+_MESSAGE.send.chatActive = function(name, data){
+	_MESSAGE.send("chatActive", {name:name}, data);
+};
+_MESSAGE.send.chatTrigger = function(name, data){
+	_MESSAGE.send("chatTrigger", {name:name}, data);
+};
+_MESSAGE.send.chatAlert = function(name, data){
+	_MESSAGE.send("chatAlert", {name:name}, data);
+};
+_MESSAGE.send.imageViewer = function(name, data){
+	_MESSAGE.send("imageViewer", {name:name}, data);
+};
+

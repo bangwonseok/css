@@ -1,0 +1,54 @@
+
+var COMMON = {};
+
+
+
+
+COMMON.onload = function(THIS){
+	// load complate
+	_MESSAGE.send.client("loadComplete");
+	_MESSAGE.on.client("setConfig", function(data){
+		THIS.config = data;
+	}, true);
+    _MESSAGE.on.client("setServiceConfig", function(data){
+        THIS.serviceConfig = data;
+    }, true);
+	_MESSAGE.on.client("setPageData", function(data){
+		THIS.pageData = data;
+
+		// Before Init
+		if(_UTIL.isNotNull(THIS.beforeInit)){
+			THIS.beforeInit();
+		}
+		// Init
+		THIS.init();
+		// After Init
+		if(_UTIL.isNotNull(THIS.afterInit)){
+			THIS.afterInit();
+		}
+		// Init Complete
+		_MESSAGE.send.client("initComplete");
+	}, true);
+};
+
+
+COMMON.init = function(THIS){
+	THIS.$body = $("body");
+	THIS.deviceType = THIS.pageData.deviceType;
+	THIS.isMobile = THIS.deviceType == "mobile";
+	THIS.$body.addClass(THIS.deviceType); // Set Class for Device Type (pc, mobile)
+	THIS.$body.addClass(THIS.pageData.lang); // Set Class for Language
+	THIS.$body.addClass(THIS.pageData.browserName);
+	THIS.$body.addClass(THIS.pageData.browserVersion);
+
+	if(THIS.pageData.isFullUi){
+		THIS.$body.addClass("mobile"); // Set Class for iFrame (mobile class will fit)
+		THIS.$body.addClass("extend"); // Set Class for iFrame (extend)
+	}
+
+	if(_UTIL.isNotNull(THIS.config) && _UTIL.isNotNull(THIS.config[THIS.deviceType])){
+		THIS.configByDevice = THIS.config[THIS.deviceType];
+		_HTML.frame.addClass(THIS.configByDevice.size); // Set Class for Size (large, medium, small)
+		_HTML.frame.children().first().addClass(THIS.configByDevice.subStyle); // Set Class for Sub-Style
+	}
+};

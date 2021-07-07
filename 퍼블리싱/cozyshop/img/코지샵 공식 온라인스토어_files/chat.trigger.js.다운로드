@@ -1,0 +1,106 @@
+// CONST ///////////////////
+_UTIL.iam = "chatTrigger";
+
+var CT = {
+	config : {},
+	pageData : {},
+	newMessageCount : 0,
+	flagNewMessage : false
+};
+
+var THIS = CT;
+
+$(function(){
+	COMMON.onload(THIS);
+});
+
+CT.init = function(){
+	COMMON.init(THIS);
+
+	if(_UTIL.isNotNull(_HTML.title)){
+		var titleText = THIS.configByDevice.titleText[_lang];
+		if(_UTIL.isEmpty(titleText)){
+			titleText = "1:1 CHAT";
+		}
+		_HTML.title.text(titleText);
+	}
+
+	// UI EVENT HANDLER
+	_HTML.wrap.click(function(){
+		THIS.hideFrame();
+		_MESSAGE.send.client("showChatActive");
+	});
+
+};
+
+
+
+// 안읽은 채팅 메시지 응답 이벤트 핸들러 (from Socket)
+_MESSAGE.on.socket("responseChatUnreadCount", function(unreadCount)	{
+
+	// 마지막 애니메이션으로 unreadCount 를 띄움
+	if(unreadCount > 0) {
+		CT.newMessageCount = unreadCount;
+        CT.showNewMessageCount();
+    }
+    else if(CT.flagNewMessage)	{
+		CT.hideNewMessageCount();
+	}
+});
+
+///////////////////////////////////////////////////////////////////////////
+// FRAME DISPLAY
+///////////////////////////////////////////////////////////////////////////
+
+_MESSAGE.on.client("show", function(lastMsgTime){
+	if(lastMsgTime != null && lastMsgTime > 0) {
+        if(_UTIL.isNotEmpty(_HTML.newMessage)) {
+            setTimeout(function() {CT.getNewMessageCount()}, 1500);
+        }
+    }
+	CT.showFrame();
+});
+_MESSAGE.on.client("hide", function(){
+    CT.hideFrame();
+});
+
+// message + 1 //
+_MESSAGE.on.client("newChat", function(){
+	if(_UTIL.isNotEmpty(_HTML.newMessage)){
+        CT.newMessageCount++;
+        CT.showNewMessageCount();
+	}
+});
+
+CT.getNewMessageCount = function()	{
+    _MESSAGE.send("socket", { from: "chatTrigger", name: "requestChatUnreadCount"}); // => responseChatUnreadCount
+};
+
+CT.showNewMessageCount = function()	{
+	if(CT.newMessageCount > 0)	{
+        _HTML.newMessage.html(CT.newMessageCount);
+        if(!CT.flagNewMessage) {
+            _HTML.newMessage.show();
+            CT.flagNewMessage = true;
+        }
+	}
+};
+
+CT.hideNewMessageCount = function()	{
+    CT.newMessageCount = 0;
+    _HTML.newMessage.hide();
+};
+
+CT.showFrame = function(){
+	_HTML.wrap.addClass("show");
+	EFFECT.showFrame();
+};
+CT.hideFrame = function(){
+   _HTML.wrap.removeClass("show");
+
+    setTimeout(function(){
+        EFFECT.hideFrame(function(){
+            _MESSAGE.send.client("hideChatTrigger");
+        });
+    }, 200);
+};

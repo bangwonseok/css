@@ -1,0 +1,173 @@
+var _HTML = {};
+var _DIC = {};
+_DIC.dictionary = {
+	"chatActive" : {
+		"sendButton" : {
+			"ko": {"text": "전송", "desc": "전송"},
+			"default" : {"text": "Send", "desc": "Send"}
+		},
+		"uploadButton" : {
+			"ko": {"text": "파일전송", "desc": "파일전송"},
+			"default" : {"text": "File Send", "desc": "File Send"}
+		},
+		"captureButton" : {
+			"ko": {"text": "화면캡쳐", "desc": "화면캡쳐"},
+			"default" : {"text": "Screen Capture", "desc": "Screen Capture"}
+		},
+		"moreOpenButton" : {
+			"ko": {"text": "더보기", "desc": "더보기"},
+			"default": {"text": "More", "desc": "More"}
+		},
+		"remoteButton" : {
+			"ko": {"text": "원격지원", "desc": "원격지원"},
+			"default": {"text": "Remote Support", "desc": "Remote Support"}
+		},
+		"deleteChatButton" : {
+			"ko": {"text": "대화내용삭제", "desc": "대화내용삭제"},
+			"default": {"text": "Delete Messages", "desc": "Delete Messages"}
+		},
+        "deleteChatTitle" : {
+            "ko": {"text": "대화내용을 삭제하시겠습니까?", "desc": ""},
+            "default": {"text": "Delete Messages?", "desc": ""}
+        },
+        "deleteChatOkButton" : {
+            "ko": {"text": "예", "desc": "대화내용을 삭제합니다."},
+            "default": {"text": "Delete", "desc": "Delete"}
+        },
+        "deleteChatCancelButton" : {
+            "ko": {"text": "아니오", "desc": "대화내욜 삭제를 취소합니다."},
+            "default": {"text": "cancel", "desc": "cancel"}
+        },
+		"read" : {
+			"ko": {"text": "읽음"},
+			"en": {"text": "read"},
+			"default": {"text": "read"}
+		},
+		"unread" : {
+			"ko": {"text": "안읽음"},
+			"en": {"text": "unread"},
+			"default": {"text": "unread"}
+		},
+		"requestRemoteSupport":{
+			"ko": {"text": "원격지원을 요청합니다."},
+			"default": {"text": "I need a Remote Suport."}
+		}
+	},
+	"chatTrigger" : {
+
+	},
+	"supportActive" : {
+
+	},
+	"supportTrigger" : {
+
+	}
+};
+
+var _param = {};
+var _lang = "ko";
+
+_DIC.init = function(){
+
+};
+_DIC.setDictionaryFile = function(file){
+	_DIC.file = file;
+};
+_DIC.search = function(key, lang){
+	if(_UTIL.isEmpty(lang)){
+		lang = _lang;
+	}
+
+	if(_UTIL.isNull(_DIC.dictionary[_UTIL.iam])){
+		return false;
+	}
+	if(_UTIL.isNull(_DIC.dictionary[_UTIL.iam][key])){
+		return false;
+	}
+
+	return _UTIL.isNotEmpty(_DIC.dictionary[_UTIL.iam][key][lang]) ? _DIC.dictionary[_UTIL.iam][key][lang] : _DIC.dictionary[_UTIL.iam][key]["default"];
+};
+
+_HTML.init = function(){
+	$("[pid]").each(function(){
+		var $this = $(this);
+		var pid = $this.attr("pid");
+		var $entity;
+
+		if($this.attr("template") == "true" || $this.get(0).nodeName.toLowerCase() == "template"){ // TEMPLATE ENTITY
+			var $template = $this.clone();
+			$template.removeClass("_template").removeAttr("template");
+			$this.remove();
+			$entity = $template;
+		}else{ // OTHER ENTITY
+			$entity = $this;
+		}
+
+		// SET EACH LANGUAGE TEXT,DESCRIPTION
+		var diction = _DIC.search(pid);
+		if(diction){
+			$entity.text(diction.text);
+			if(_UTIL.isNotEmpty(diction.desc)){
+				$entity.attr("tooltip", diction.desc).attr("title", diction.desc);
+			}
+		}
+
+		// REGISTER TO _html OBJECT
+		_HTML[pid] = $entity;
+	});
+
+	$("insertTemplate").each(function(){
+		var $this = $(this);
+		var pid = $this.attr("templatePid");
+		var afterPid = $this.attr("afterPid");
+		var $template = _HTML.getTemplate(pid, afterPid);
+
+		$this.after($template);
+		$this.remove();
+	});
+};
+
+_HTML.decode = function(encodedHtml){
+	return $("<div/>").html(encodedHtml).text();
+};
+
+_HTML.markKeyword = function(sourceText, keyword, isNeedHtmlDecode){
+	if(_UTIL.isEmpty(sourceText)){ return ""; }
+
+	if(isNeedHtmlDecode){
+		sourceText = _HTML.decode(sourceText);
+	}
+
+	if(_UTIL.isEmpty(keyword)){ return sourceText; }
+
+	return sourceText.split(keyword).join("<span class='_keyword'>" + keyword + "</span>");
+};
+
+_HTML.getTemplate = function(templatePid, afterPid){
+	if(_UTIL.isEmpty(_HTML[templatePid])){
+		_UTIL.log("couldn't find template", "templatePid = " + templatePid);
+		return "";
+	}
+
+	var $template = _HTML[templatePid].clone();
+	if($template.get(0).nodeName.toLowerCase() == "template") {
+		$template = $($template.html());
+	}
+	if(afterPid){
+		$template.attr("pid", afterPid);
+	}
+	return $template;
+
+};
+
+
+$(function(){
+	// GET LANGUAGE
+	_param = $.getQueryParameters();
+	if(_UTIL.isNotEmpty(_param.lang)){
+		_lang = _param.lang;
+	}
+
+	_DIC.init();
+	_HTML.init();
+});

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!-- saved from url=(0131)https://static.livefeed.co/ui/common/html/socket.html?serviceId=1767&socketServerUrl=https%3A%2F%2Fgd-db.livefeed.co%3A3011&lang=ko -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	
+	<script type="text/javascript" src="./jquery.js.다운로드"></script>
+	<script type="text/javascript" src="./socket.io.js.다운로드"></script>
+	<script type="text/javascript" src="./const.js.다운로드"></script>
+	<script type="text/javascript" src="./util.js.다운로드"></script>
+	<script type="text/javascript" src="./util.frame.js.다운로드"></script>
+	<script type="text/javascript" src="./util.message.js.다운로드"></script>
+
+	<script>
+
+		_UTIL.iam = "socket";
+
+		var SOCKET = {
+			socket : null,
+			socketConfig : {
+				connectOption : {
+					forceNew: true
+					// rememberTransport: false,
+					// 'reconnect': true,
+					// 'reconnection delay' : 500,
+					// 'max reconnection attempts': 10
+				},
+				responseName : "",
+				socketOnList : {},
+				socket : {},
+				debug : false
+			},
+			serviceId : null,
+			visitId : null,
+			userId : null,
+			pageId : null,
+			sectionId : null,
+			managerId : null,
+			lang  : null,
+			token : null,
+			socketServerUrl : null,
+			param : $.getQueryParameters()
+		};
+
+
+		SOCKET.serviceId = SOCKET.param.serviceId;
+		SOCKET.socketServerUrl = SOCKET.param.socketServerUrl;
+		SOCKET.lang = SOCKET.param.lang;
+
+
+		///////////////////////////////////////////////////////////////////////////
+		// GETTER & SETTER
+		///////////////////////////////////////////////////////////////////////////
+
+		// SERVICE ID
+		SOCKET.setServiceId = function(serviceId){ SOCKET.serviceId = serviceId; };
+		SOCKET.getServiceId = function(){ return _UTIL.parseInt(SOCKET.serviceId); };
+
+		// USER ID
+		SOCKET.setUserId = function(userId){ SOCKET.userId = userId; };
+		SOCKET.getUserId = function(){ return _UTIL.parseInt(SOCKET.userId); };
+
+		// VIST ID
+		SOCKET.setVisitId = function(visitId){ SOCKET.visitId = visitId; };
+		SOCKET.getVisitId = function(){ return _UTIL.parseInt(SOCKET.visitId); };
+
+		// PAGE ID
+		SOCKET.setPageId = function(pageId){ SOCKET.pageId = pageId; };
+		SOCKET.getPageId = function(){ return _UTIL.parseInt(SOCKET.pageId); };
+
+		// TOKEN
+		SOCKET.setToken = function(token){ SOCKET.token = token; };
+		SOCKET.getToken = function(){ return SOCKET.token; };
+
+		// SECTION ID
+		SOCKET.setSectionId = function(sectionId){ SOCKET.sectionId = sectionId; };
+		SOCKET.getSectionId = function(){ return SOCKET.sectionId; };
+
+		// MANAGER ID
+		SOCKET.setManagerId = function(managerId){ SOCKET.managerId = managerId; };
+		SOCKET.getManagerId = function(){ return SOCKET.managerId; };
+
+		// LANG
+		SOCKET.setLang = function(lang){ SOCKET.lang = lang; };
+		SOCKET.getLang = function(){ return SOCKET.lang; };
+
+
+
+		///////////////////////////////////////////////////////////////////////////
+		// SOCKET INIT
+		///////////////////////////////////////////////////////////////////////////
+		SOCKET.on = function(eventName, handler){
+			SOCKET.socket.on(eventName, handler);
+		};
+		SOCKET.send = function(eventName, data){
+
+			// Set Default Send-Value //////////////
+			if(_UTIL.isEmpty(data)){ data = {}; }
+			data.serviceId = _UTIL.isNotNull(data.serviceId) ? data.serviceId : SOCKET.getServiceId();
+			data.visitId = _UTIL.isNotNull(data.visitId) ? data.visitId : SOCKET.getVisitId();
+			data.userId = _UTIL.isNotNull(data.userId) ? data.userId : SOCKET.getUserId();
+			data.cookieSessionId = data.userId;
+			data.pageId = _UTIL.isNotNull(data.pageId) ? data.pageId : SOCKET.getPageId();
+			data.sectionId = _UTIL.isNotNull(data.sectionId) ? data.sectionId : SOCKET.getSectionId() || "1";
+			data.managerId = _UTIL.isNotNull(data.managerId) ? data.managerId : SOCKET.getManagerId() || "";
+			data.lang = _UTIL.isNotNull(data.lang) ? data.lang : SOCKET.getLang();
+			data.token = _UTIL.isNotNull(data.token) ? data.token : SOCKET.getToken();
+			////////////////////////////////////////
+
+			_UTIL.log("▶▶▶ [★★SOCKET★★] "+eventName, data);
+			SOCKET.socket.emit(eventName, data);
+		};
+		{
+			SOCKET.socket = io.connect(SOCKET.socketServerUrl, SOCKET.socketConfig.connectOption);
+			SOCKET.on(Const.socketEvent.WHOAREYOU,function(data){
+				var param = { whoAmI : "user", serviceId : SOCKET.serviceId, userCookieId : SOCKET.getUserId(), token : SOCKET.getToken() };
+				SOCKET.send(Const.socketEvent.WHOAMI, param);
+			});
+
+			// DEFAULT SOCKET HANDLER (For LOG) *******************
+			var onevent = SOCKET.socket.onevent;
+			SOCKET.socket.onevent = function (packet) {
+				var args = packet.data || [];
+				onevent.call (this, packet);    // original call
+				packet.data = ["*"].concat(args);
+				onevent.call(this, packet);      // additional call to catch-all
+			};
+			SOCKET.socket.on("*", function(eventName, data){
+				_UTIL.log("◁◁◁ [★★SOCKET★★] "+eventName, data);
+			});
+			// ******************************************************
+		}
+
+
+
+		///////////////////////////////////////////////////////////////////////////
+		// CLIENT (LOG & API)
+		///////////////////////////////////////////////////////////////////////////
+
+		// 01
+		SOCKET.on(Const.socketEvent.REQUEST_PAGEVIEW_DATA, function (data) {
+			_MESSAGE.send.client("requestPageData");
+		}, true);
+
+		// 02
+		_MESSAGE.on.client("insertPageData", function (data) {
+			SOCKET.setSectionId(data.sectionId);
+			SOCKET.setManagerId(data.managerId);
+
+			SOCKET.send(Const.socketEvent.SAVE_PAGEVIEW, data);
+		}, true);
+
+		// 03
+		SOCKET.on(Const.socketEvent.SAVE_PAGEVIEW_RESULT, function (data) {
+
+			// Update Cookie Value that Received from Server //
+			data.userId = data.userCookieId;
+			SOCKET.setUserId(data.userId);
+			SOCKET.setVisitId(data.visitId);
+			SOCKET.setPageId(data.pageId);
+			SOCKET.setToken(data.token);
+			///////////////////////////////////////////////////
+
+			_MESSAGE.send.client("loadComplete", data);
+		});
+
+		// API
+		_MESSAGE.on.client("insertSalesData", function (salesData) {
+			var param = {};
+			param.list = [].concat(salesData); // Object to Array
+
+			SOCKET.send(Const.socketEvent.SAVE_SALES_DATA, param);
+		},true);
+
+		// API
+		/*
+		_MESSAGE.on.client("setPageTag", function (pageTag) {
+			var param = {};
+			param.data = pageTag;
+
+			SOCKET.send("setPageTag", param);
+		},true);
+		*/
+
+		// API
+		_MESSAGE.on.client("saveUserData", function (userData) {
+			SOCKET.send(Const.socketEvent.SAVE_USER_DATA, userData);
+		},true);
+
+		// 썸네일 업로드(크로드도메인 문제를 우회하기 위해 socket.html에서 처리)
+		_MESSAGE.on.client("uploadThumbnail", function(thumbnailData){
+
+			 $.post(thumbnailData.uploadUrl, thumbnailData,
+				 function(result){
+				 	_UTIL.log("THUMBNAIL UPLOADED", result);
+				 }
+			 );
+		},true);
+
+        ///////////////////////////////////////////////////////////////////////////
+        // CHAT TRIGGER
+        ///////////////////////////////////////////////////////////////////////////
+
+        // 01
+        _MESSAGE.on.chatTrigger("requestChatUnreadCount", function(){
+            var param = {
+                sessionId : SOCKET.getUserId()
+            };
+            SOCKET.send(Const.socketEvent.MESSAGE_UNREAD_COUNT, param);
+        }, false);
+        SOCKET.on(Const.socketEvent.MESSAGE_UNREAD_COUNT_RESULT, function(data){
+            _MESSAGE.send.chatTrigger("responseChatUnreadCount", data.count);
+        });
+
+		///////////////////////////////////////////////////////////////////////////
+		// CHAT ACTIVE
+		///////////////////////////////////////////////////////////////////////////
+
+		// 01
+		_MESSAGE.on.chatActive("requestChatList", function(){
+			var param = {
+				sessionId : SOCKET.getUserId()
+			};
+			SOCKET.send(Const.socketEvent.MESSAGE_LIST, param);
+		}, true);
+		SOCKET.on(Const.socketEvent.MESSAGE_LIST_RESULT, function(data){
+			_MESSAGE.send.chatActive("responseChatList", data.msgs);
+		});
+
+
+        _MESSAGE.on.chatActive("requestChatRoomData", function(){
+            var param = {
+                sessionId : SOCKET.getUserId()
+            };
+            SOCKET.send(Const.socketEvent.MESSAGE_ROOM, param);
+        }, true);
+        SOCKET.on(Const.socketEvent.MESSAGE_ROOM_RESULT, function(data){
+            _MESSAGE.send.chatActive("responseChatRoomData", data.rooms);
+        });
+
+
+
+		// 02
+		_MESSAGE.on.chatActive("userNewChat",function(data){
+			var param = {
+				sessionId : SOCKET.getUserId(),
+				msg : data.text,
+				type : data.type,
+				managerId : data.managerId
+			};
+			// 181001progress sender 를 system 등으로 변경하여 사용 //
+			if(data.sender)	{
+			    param.sender = data.sender;
+			}
+
+			SOCKET.send(Const.socketEvent.MESSAGE_NEW, param);
+		});
+
+		// FIXME: RJ@V5
+		// 사용자 측에서 관리자가 보내는 것처럼 
+		_MESSAGE.on.chatActive("userAdminChat",function(data){
+			var param = {
+				sessionId : SOCKET.getUserId(),
+				msg : data.text,
+				type : data.type,
+				managerId : data.managerId,
+				sender : Const.chat.sender.MANAGER
+			};
+
+			SOCKET.send(Const.socketEvent.MESSAGE_NEW, param);
+		});
+
+		_MESSAGE.on.chatActive(Const.socketEvent.MESSAGE_READ,function(data){
+			var param = {
+				sessionId : SOCKET.getUserId(),
+				focus : data.focus,
+				sender : Const.chat.sender.USER
+			};
+
+			SOCKET.send(Const.socketEvent.MESSAGE_READ, param);
+		});
+
+		// 03
+		SOCKET.on(Const.socketEvent.MESSAGE_NEW, function(data){
+			// 매니저ID에 할당된 메시지만 표시 by RJ
+			var managerId = SOCKET.getManagerId();
+			if(_UTIL.isNotEmpty(managerId) && _UTIL.isNotEmpty(data.managerId) && data.managerId != managerId){
+				return;
+			}
+
+			_MESSAGE.send.client("newChat"); // 채팅창이 비활성화인 경우에 대한 처리를 위해 전송
+			_MESSAGE.send.chatActive("newChat", data);
+		});
+
+		// 04
+		SOCKET.on(Const.socketEvent.MESSAGE_READ, function(data){
+			if(_UTIL.isNull(_FRAME.get("chatActive"))){
+				return;
+			}
+			_MESSAGE.send.chatActive("managerReadChat");
+		});
+
+		// data = {sessionId : 1111 };
+		SOCKET.on(Const.socketEvent.CHECK_USER_FOCUSED, function(data){
+			_MESSAGE.send.chatActive("checkUserFocused", data);
+		});
+
+		// 05
+		SOCKET.on(Const.socketEvent.MESSAGE_TYPING, function(data){
+			_MESSAGE.send.chatActive("managerTypingChat", data);
+		});
+
+		_MESSAGE.on.chatActive("userDeleteMsg",function(data){
+			SOCKET.send(Const.socketEvent.MESSAGE_DELETE, data);
+		});
+
+		_MESSAGE.on.chatActive("userTypingChat",function(data){
+			SOCKET.send(Const.socketEvent.MESSAGE_TYPING, data);
+		});
+
+		_MESSAGE.onDefault(function(condition, data){
+			_UTIL.log("_MESSAGE.onDefault", condition, data);
+		});
+
+
+
+	</script>
+</head>
+<body>
+</body></html>

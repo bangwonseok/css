@@ -1,0 +1,50 @@
+var Const = {
+	chat: {
+		sender: {
+			USER: "U",
+			MANAGER: "M",
+			SYSTEM: "S"
+		},
+		messageType: {
+			ASSIGN: "assign",
+			PROGRESS: "progress",
+			TEXT: "text",
+			FIRST: "first",
+			HELLO: "hello",
+			ABSENT: "absent",
+			IMAGE: "image",
+			FILE: "file",
+			REMOTE: "remote",
+			TYPING: "typing"
+		},
+		helloMessageType: {
+			TEXT: "text",
+			FAQBOT: "faqBot"
+		},
+        firstMessageType: {
+            TEXT: "text",
+            PROFILEBOT: "profileBot"
+        }
+	},
+	webLog: {},
+	socketEvent: {
+		WHOAMI: "WHOAMI",
+		WHOAREYOU: "WHOAREYOU",
+		MESSAGE_NEW: "MESSAGE_NEW",
+		MESSAGE_TYPING: "MESSAGE_TYPING",
+		MESSAGE_READ: "MESSAGE_READ",
+        MESSAGE_ROOM: "MESSAGE_ROOM",
+        MESSAGE_ROOM_RESULT: "MESSAGE_ROOM_RESULT",
+		MESSAGE_LIST: "MESSAGE_LIST",
+		MESSAGE_LIST_RESULT: "MESSAGE_LIST_RESULT",
+        MESSAGE_UNREAD_COUNT: "MESSAGE_UNREAD_COUNT",
+        MESSAGE_UNREAD_COUNT_RESULT: "MESSAGE_UNREAD_COUNT_RESULT",
+		MESSAGE_DELETE: "MESSAGE_DELETE",
+		CHECK_USER_FOCUSED: "CHECK_USER_FOCUSED",
+		SAVE_PAGEVIEW: "SAVE_PAGEVIEW",
+		SAVE_PAGEVIEW_RESULT: "SAVE_PAGEVIEW_RESULT",
+		REQUEST_PAGEVIEW_DATA: "REQUEST_PAGEVIEW_DATA",
+		SAVE_USER_DATA: "SAVE_USER_DATA",
+		SAVE_SALES_DATA: "SAVE_SALES_DATA"
+	}
+};
