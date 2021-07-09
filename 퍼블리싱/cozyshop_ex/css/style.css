@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+/* 공통 */
+*{
+	box-sizing: border-box;
+	color: #000000;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+html {
+	font-size: 13px;
+}
+
+body {
+	margin : 0;
+}
+
+a {
+		text-decoration: none;
+}
+
+ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.layout_width{
+	width: 1200px;
+	margin: 0 auto;
+}
+
+/**사이트상단 메뉴*/
+.site_top{
+	height:30px;
+	background-color:#f9f9f9;
+	text-align: right;
+}
+
+.site_top a{
+	font-size: 12px;
+	letter-spacing: -0.24px;
+	color: #333333;
+	padding: 0 10px 0 11px;
+	line-height: 30px;
+	position: relative;
+	display: inline-block;
+}
+
+.site_top a:before {
+	content: '';
+	display: block;
+	width: 1px;
+	height: 9px;
+	background-color: #333333;
+	position: absolute;
+	top: 11px;
+	left: 0;
+}
+
+.site_top .first:before{
+	display: none; 
+}
+
+/** 사이트 로고, 검색, 아이콘 메뉴 */
+.logo_search .box{
+	width: calc(100% / 3);
+	float: left;
+}
+
+.logo_search .inner:after{
+	clear: left;
+	content: '';
+	display: block;
+}
+
+.logo_search .logo{
+	text-align:center;
+	padding: 46px 0;
+}
+
+.logo_search .logo img {
+	height: 28px
+}
+
+.logo_search .search{
+	padding-top: 40px;
+}
+
+.logo_search .search input[type='image'] {		/*  중요 */
+	height: 37px;
+	vertical-align: middle;
+}
